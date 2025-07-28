@@ -1,0 +1,9 @@
+overrides:
+  mutation_mode: all
+transport:
+  type: streamable_http
+  address: 127.0.0.1
+  port: 5000
+operations:
+  source: collection
+  id: default #<- is this needed or is it defaulted?
