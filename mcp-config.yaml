@@ -7,3 +7,6 @@ transport:
 operations:
   source: collection
   id: default #<- is this needed or is it defaulted?
+  
+# If you are running the Apollo Router locally, comment out this line
+endpoint: https://router-template-production.up.railway.app/
