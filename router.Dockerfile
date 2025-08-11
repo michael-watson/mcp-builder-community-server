@@ -1,4 +1,4 @@
-FROM ghcr.io/apollographql/router:latest
+FROM ghcr.io/apollographql/router:v2.5.0
 
 ENV BUILD_ENV=${BUILD_ENV:-local}
 
