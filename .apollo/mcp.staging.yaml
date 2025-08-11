@@ -18,4 +18,4 @@ transport:
       - client_01K1Y6GZ1TK5P1G0JW3MPPE6KW
     scopes:
       - profile
-endpoint: https://apollo-router-staging.up.railway.app/mcp
+endpoint: https://apollo-router-staging.up.railway.app
