@@ -15,4 +15,4 @@ transport:
       - client_01K1Y6GZ1TK5P1G0JW3MPPE6KW
     scopes:
       - profile
-endpoint: mcp-server.railway.internal
+endpoint: mcp-builder-community-server.railway.internal
