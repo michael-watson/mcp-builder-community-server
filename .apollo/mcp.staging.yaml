@@ -4,7 +4,7 @@ operations:
   source: collection
   id: default 
 introspection:
-  search:
+  execute:
     enabled: true
 transport:
   type: streamable_http
@@ -18,4 +18,4 @@ transport:
       - client_01K1Y6GZ1TK5P1G0JW3MPPE6KW
     scopes:
       - profile
-endpoint: http://mcp-builder-community-server.railway.internal
+endpoint: https://apollo-router-staging.up.railway.app
