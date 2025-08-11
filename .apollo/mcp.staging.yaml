@@ -3,6 +3,9 @@ overrides:
 operations:
   source: collection
   id: default 
+introspection:
+  search:
+    enabled: true
 transport:
   type: streamable_http
   address: 127.0.0.1
