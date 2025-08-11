@@ -1,0 +1,18 @@
+overrides:
+  mutation_mode: all
+operations:
+  source: collection
+  id: default 
+transport:
+  type: streamable_http
+  address: 127.0.0.1
+  port: 5000
+  auth:
+    servers:
+      - https://wholesome-canyon-12-staging.authkit.app
+    resource: https://mcp-server-staging-409c.up.railway.app/mcp
+    audiences:
+      - client_01K1Y6GZ1TK5P1G0JW3MPPE6KW
+    scopes:
+      - profile
+endpoint: mcp-server.railway.internal

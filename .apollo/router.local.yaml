@@ -1,0 +1,33 @@
+sandbox:
+  enabled: true
+supergraph:
+  introspection: true
+  listen: 0.0.0.0:${env.PORT:-4000}
+  query_planning:
+    cache:
+      in_memory:
+        limit: 512 # This is the default value
+homepage:
+  enabled: false
+include_subgraph_errors:
+  all: true
+
+telemetry:
+  instrumentation:
+    spans:
+      mode: spec_compliant
+
+authorization:
+  require_authentication: true
+authentication:
+  router:
+    jwt:
+      jwks:
+        - url: https://api.workos.com/sso/jwks/client_01K1Y6GZ1TK5P1G0JW3MPPE6KW
+
+connectors:
+  sources:
+    speakerSubmission.supabase:
+      $config:
+        anonKey: ${env.anonKey}
+      override_url: ${env.url}

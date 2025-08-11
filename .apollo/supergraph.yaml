@@ -1,0 +1,6 @@
+federation_version: "=2.11.0"
+subgraphs:
+  speakerSubmission:
+    routing_url: http://connector
+    schema:
+      file: ./schema.graphql

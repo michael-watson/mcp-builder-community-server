@@ -1,0 +1,276 @@
+extend schema
+  @link(
+    url: "https://specs.apollo.dev/federation/v2.10"
+    import: ["@key", "@shareable", "@external", "@requires", "@inaccessible"]
+  ) # Enable this schema to use Apollo Federation features
+  @link( # Enable this schema to use Apollo Connectors
+    url: "https://specs.apollo.dev/connect/v0.1"
+    import: ["@connect", "@source"]
+  )
+  @source(
+    name: "api"
+    http: { baseURL: "https://rest-api-production-ae28.up.railway.app/" }
+  )
+  @source(
+    name: "supabase"
+    http: {
+      baseURL: "https://gpzzrstlzzikkxgeauso.supabase.co/rest/v1/"
+      headers: [
+        { name: "Authorization", value: "Bearer {$config.anonKey}" }
+        { name: "apiKey", value: "{$config.anonKey}" }
+      ]
+    }
+  )
+
+#build this out to whatever cities, consider an any/other value
+enum Location {
+  NY
+  SF
+  VIRTUAL
+}
+
+input SpeakerSubmissionInput {
+  name: String!
+  email: String!
+  title: String!
+  abstract: String!
+  location: Location!
+}
+
+input UpdateSubmissionInput {
+  name: String
+  email: String
+  title: String
+  abstract: String
+  location: Location
+}
+
+type Submission {
+  id: ID
+  title: String
+  abstract: String
+  name: String
+  email: String
+  location: Location
+  message: String
+}
+
+type Talk {
+  title: String
+  abstract: String
+}
+
+type SubmissionSummary {
+  id: ID!
+  title: String!
+  abstract: String!
+  location: Location!
+  email: String!
+}
+
+type SubmissionList {
+  submissions: [SubmissionSummary!]!
+  count: Int
+  message: String
+}
+
+type SubmissionDetails {
+  id: ID!
+  name: String!
+  email: String!
+  title: String!
+  abstract: String!
+  location: Location!
+  submission_token: String!
+}
+
+type UpdateResponse {
+  submission: SubmissionDetails!
+}
+
+type Query {
+  allTalks: [Talk]
+    @connect(
+      source: "supabase"
+      http: { GET: "proposals?select=title,abstract" }
+      selection: """
+      title
+      abstract
+      """
+    )
+
+  userSubmissions(submissionToken: String!): SubmissionList
+    @connect(
+      source: "api"
+      http: { GET: "submissions/{$args.submissionToken}" }
+      selection: """
+      submissions {
+        id
+        title
+        abstract
+        location
+        email
+      }
+      count
+      message
+      """
+    )
+
+  getEvents(limit: Int, offset: Int): [Event!]!
+    @connect(
+      source: "supabase"
+      http: {
+        GET: "events?select=*"
+        queryParams: """
+        limit: $args.limit
+        offset: $args.offset
+        """
+      }
+      selection: """
+      id
+      eventName: name
+      location
+      date
+      url
+      """
+    )
+
+  getSessions: [Session]
+    @connect(
+      source: "supabase"
+      http: { GET: "sessions?select=*" }
+      selection: """
+      id
+      speakerName: speaker_name
+      speakerSocial: speaker_social
+      talkTitle: talk_title
+      talkDescription: talk_description
+      talkLink: talk_link
+      codeLink: code_link
+      slidesLink: slides_link
+      eventId: event_id
+      """
+    )
+
+  sessionsByEvent(eventId: ID!): [Session!]!
+    @connect(
+      source: "supabase"
+      http: { GET: "sessions?event_id=eq.{$args.eventId}" }
+      selection: """
+      id
+      speakerName: speaker_name
+      speakerSocial: speaker_social
+      talkTitle: talk_title
+      talkDescription: talk_description
+      talkLink: talk_link
+      codeLink: code_link
+      slidesLink: slides_link
+      eventId: event_id
+      """
+    )
+}
+
+type Mutation {
+  submitProposal(
+    name: String!
+    email: String!
+    title: String!
+    abstract: String!
+    location: Location!
+  ): Submission
+    @connect(
+      source: "api"
+      http: {
+        POST: "submit"
+        body: """
+        name: $args.name
+        email: $args.email
+        title: $args.title
+        abstract: $args.abstract
+        location: $args.location
+        """
+      }
+
+      selection: """
+      id
+      name
+      email
+      title
+      abstract
+      location
+      message
+      """
+      errors: { message: "$.message" }
+    )
+
+  updateSubmission(
+    id: ID!
+    submissionToken: String!
+    name: String
+    email: String
+    title: String
+    abstract: String
+    location: Location
+  ): UpdateResponse
+    @connect(
+      source: "api"
+      http: {
+        PUT: "submission/{$args.id}?submission_token={$args.submissionToken}"
+        body: """
+        name: $args.name
+        email: $args.email
+        title: $args.title
+        abstract: $args.abstract
+        location: $args.location
+        """
+      }
+      selection: """
+      submission {
+        id
+        name
+        email
+        title
+        abstract
+        location
+        submission_token
+      }
+      """
+      errors: { message: "$.message" }
+    )
+}
+
+type Event {
+  id: ID!
+  eventName: String!
+  location: String!
+  date: String!
+  url: String!
+  sessions: [Session!]!
+    @connect(
+      source: "supabase"
+      http: { GET: "/sessions?event_id=eq.{$this.id}&select=*" }
+      selection: """
+      id
+      speakerName: speaker_name
+      speakerSocial: speaker_social
+      talkTitle: talk_title
+      talkDescription: talk_description
+      talkLink: talk_link
+      codeLink: code_link
+      slidesLink: slides_link
+      eventId: event_id
+      """
+    )
+}
+
+type Session {
+  id: ID!
+  speakerName: String!
+  speakerSocial: String
+  talkTitle: String!
+  talkDescription: String!
+  talkLink: String
+  codeLink: String
+  slidesLink: String
+  eventId: ID!
+}

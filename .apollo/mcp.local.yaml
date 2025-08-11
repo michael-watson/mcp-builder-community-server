@@ -1,0 +1,16 @@
+overrides:
+  mutation_mode: all
+operations:
+  source: collection
+  id: default 
+transport:
+  type: streamable_http
+  port: 5000
+  auth:
+    servers:
+      - https://wholesome-canyon-12-staging.authkit.app
+    resource: http://localhost:5000/mcp
+    audiences:
+      - client_01K1Y6GZ1TK5P1G0JW3MPPE6KW
+    scopes:
+      - profile
