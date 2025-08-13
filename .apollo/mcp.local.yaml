@@ -10,7 +10,9 @@ transport:
     servers:
       - https://wholesome-canyon-12-staging.authkit.app
     resource: http://localhost:5000/mcp
+    # Audience validation - we validate based on the JWT <- question for Dale
     audiences:
       - client_01K1Y6GZ1TK5P1G0JW3MPPE6KW
     scopes:
       - profile
+# endpoint: http://localhost:4000

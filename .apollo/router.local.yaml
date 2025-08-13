@@ -23,7 +23,19 @@ authentication:
   router:
     jwt:
       jwks:
-        - url: https://api.workos.com/sso/jwks/client_01K1Y6GZ1TK5P1G0JW3MPPE6KW
+        - url: https://wholesome-canyon-12-staging.authkit.app/oauth2/jwks
+
+coprocessor:
+  url: http://localhost:8081 # Required. Replace with the URL of your coprocessor's HTTP endpoint.
+  timeout: 30s # The timeout for all coprocessor requests. Defaults to 1 second (1s)
+  router: # This coprocessor hooks into the `RouterService`
+    request: # By including this key, the `RouterService` sends a coprocessor request whenever it first receives a client request.
+      headers: true # These boolean properties indicate which request data to include in the coprocessor request. All are optional and false by default.
+      body: true
+      context: true
+      sdl: false
+      path: true
+      method: true
 
 connectors:
   sources:
