@@ -17,13 +17,13 @@ telemetry:
     spans:
       mode: spec_compliant
 
-# authorization:
-#   require_authentication: true
-# authentication:
-#   router:
-#     jwt:
-#       jwks:
-#         - url: https://wholesome-canyon-12-staging.authkit.app/oauth2/jwks
+authorization:
+  require_authentication: true
+authentication:
+  router:
+    jwt:
+      jwks:
+        - url: https://wholesome-canyon-12-staging.authkit.app/oauth2/jwks
 
 connectors:
   sources:
