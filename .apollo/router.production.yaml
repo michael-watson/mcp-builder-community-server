@@ -8,8 +8,10 @@ telemetry:
 
 logging: 
   level: debug
+
 # authorization:
 #   require_authentication: true
+
 authentication:
   router:
     jwt:
