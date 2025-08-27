@@ -8,7 +8,7 @@ telemetry:
 
 # authorization:
 #   require_authentication: true
-# authentication:
+authentication:
 #   router:
 #     jwt:
 #       jwks:
