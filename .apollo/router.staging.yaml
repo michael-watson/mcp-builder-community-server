@@ -33,6 +33,14 @@ authentication:
             region: "us-east-1"
             service_name: "dynamodb"
 
+coprocessor:
+  url: ${env.COPROCESSOR_URL} 
+  timeout: 2s 
+  router: 
+    request: 
+      headers: true 
+      context: true
+
 connectors:
   sources:
     events.luma:
