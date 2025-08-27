@@ -2,20 +2,18 @@ extend schema
   @link(
     url: "https://specs.apollo.dev/federation/v2.10"
     import: ["@key", "@shareable", "@external", "@requires", "@inaccessible"]
-  ) # Enable this schema to use Apollo Federation features
-  @link( # Enable this schema to use Apollo Connectors
+  ) 
+  @link(
     url: "https://specs.apollo.dev/connect/v0.1"
     import: ["@connect", "@source"]
   )
   @source(
     name: "lambda"
-    # If you want to use multiple regions, see router.yaml for configuration based on environment variables
     http: { baseURL: "https://lambda.us-east-1.amazonaws.com" }
   )
   @source(
     name: "dynamodb"
     http: {
-      # If you want to use multiple regions, see router.yaml for configuration based on environment variables
       baseURL: "https://dynamodb.us-east-1.amazonaws.com"
     }
   )

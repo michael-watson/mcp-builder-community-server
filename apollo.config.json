@@ -1,5 +1,5 @@
 {
   "rover":{
-    "supergraphConfig": "./.apollo/supergraph.yaml"
+    "supergraphConfig": "./connectors/supergraph.yaml"
   }
 }

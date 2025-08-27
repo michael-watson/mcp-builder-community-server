@@ -19,15 +19,15 @@ authentication:
   router:
     jwt:
       jwks:
-        - url: https://wholesome-canyon-12-staging.authkit.app/oauth2/jwks
+        - url: ${env.JWKS_URL}
   connector:
     sources:
-      speakerSubmission.lambda:
+      aws.lambda:
         aws_sig_v4:
           default_chain:
             region: "us-east-1"
             service_name: "lambda"
-      speakerSubmission.dynamodb:
+      aws.dynamodb:
         aws_sig_v4:
           default_chain:
             region: "us-east-1"
