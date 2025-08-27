@@ -8,11 +8,11 @@ telemetry:
 
 # authorization:
 #   require_authentication: true
-authentication:
-  router:
-    jwt:
-      jwks:
-        - url: ${env.JWKS_URL}
+# authentication:
+#   router:
+#     jwt:
+#       jwks:
+#         - url: ${env.JWKS_URL}
   connector:
     sources:
       aws.lambda:
