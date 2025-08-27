@@ -4,4 +4,4 @@ ARG BUILD_ENV=local
 
 COPY .apollo/router.$BUILD_ENV.yaml /config.yaml
 
-CMD ["--config", "/config.yaml"]
+CMD ["--config", "/config.yaml","--log","debug"]

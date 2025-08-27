@@ -32,7 +32,6 @@ coprocessor:
   router: 
     request: 
       headers: true 
-      context: true
 
 connectors:
   sources:
