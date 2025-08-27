@@ -13,7 +13,7 @@ async function handleRequest(req, res) {
     switch (req?.body?.stage) {
       case "RouterRequest":
         const payload = req.body;
-        console.log(JSON.stringify(req));
+        console.log(JSON.stringify(req.body));
         const auth = req.body?.headers?.authorization[0];
         const decodedToken = jose.decodeJwt(auth);
         const user = await workos.userManagement.getUser(decodedToken.sub);
