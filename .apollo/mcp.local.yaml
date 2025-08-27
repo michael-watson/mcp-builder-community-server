@@ -1,0 +1,15 @@
+overrides:
+  mutation_mode: all
+operations:
+  source: collection
+  id: default 
+introspection:
+  introspect:
+    enabled: true
+  search:
+    enabled: true
+  execute:
+    enabled: true
+transport:
+  type: streamable_http
+  port: 5000

@@ -23,6 +23,8 @@ APOLLO_KEY=... APOLLO_GRAPH_REF=... ./apollo-mcp-server mcp-config.yaml
 ## Running with Docker 
 
 ```
-docker build --tag mcp-server-builder-series .
-docker run -it --env-file .env -p5000:5000 mcp-server-builder-series
+docker build --tag mcp-server-builder-series-mcp -f mcp.Dockerfile .
+docker build --tag mcp-server-builder-series-router -f mcp.Dockerfile .
+docker run -it --env-file .env -p5000:5000 mcp-server-builder-series-mcp
+docker run -it --env-file .env -p4000:4000 mcp-server-builder-series-router
 ```

@@ -1,0 +1,34 @@
+sandbox:
+  enabled: true
+supergraph:
+  introspection: true
+  listen: 0.0.0.0:${env.PORT:-4000}
+homepage:
+  enabled: false
+include_subgraph_errors:
+  all: true
+
+telemetry:
+  instrumentation:
+    spans:
+      mode: spec_compliant
+
+authentication:
+  connector:
+    sources:
+      speakerSubmission.lambda:
+        aws_sig_v4:
+          default_chain:
+            region: "us-east-1"
+            service_name: "lambda"
+      speakerSubmission.dynamodb:
+        aws_sig_v4:
+          default_chain:
+            region: "us-east-1"
+            service_name: "dynamodb"
+
+connectors:
+  sources:
+    events.luma:
+      $config:
+        lumaKey: ${env.LUMA_API_KEY}
