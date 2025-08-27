@@ -4,3 +4,7 @@ subgraphs:
     routing_url: http://connector
     schema:
       file: ./schema.graphql
+  events:
+    routing_url: http://luma
+    schema:
+      file: ./events.graphql

@@ -18,9 +18,7 @@ async function handleRequest(req, res) {
         const user = await workos.userManagement.getUser(decodedToken.sub);
 
         payload.context.entries.email = user.email;
-
-        //AWS SDK Code
-        // Generate role_arn dynamically based on the user email
+        
         res.send(payload);
     }
   } catch (error) {

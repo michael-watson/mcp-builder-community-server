@@ -3,10 +3,6 @@ sandbox:
 supergraph:
   introspection: true
   listen: 0.0.0.0:${env.PORT:-4000}
-  query_planning:
-    cache:
-      in_memory:
-        limit: 512 # This is the default value
 homepage:
   enabled: false
 include_subgraph_errors:
@@ -17,29 +13,22 @@ telemetry:
     spans:
       mode: spec_compliant
 
-authorization:
-  require_authentication: true
 authentication:
-  router:
-    jwt:
-      jwks:
-        - url: https://wholesome-canyon-12-staging.authkit.app/oauth2/jwks
-
-coprocessor:
-  url: http://localhost:8081 # Required. Replace with the URL of your coprocessor's HTTP endpoint.
-  timeout: 30s # The timeout for all coprocessor requests. Defaults to 1 second (1s)
-  router: # This coprocessor hooks into the `RouterService`
-    request: # By including this key, the `RouterService` sends a coprocessor request whenever it first receives a client request.
-      headers: true # These boolean properties indicate which request data to include in the coprocessor request. All are optional and false by default.
-      body: true
-      context: true
-      sdl: false
-      path: true
-      method: true
+  connector:
+    sources:
+      speakerSubmission.lambda:
+        aws_sig_v4:
+          default_chain:
+            region: "us-east-1"
+            service_name: "lambda"
+      speakerSubmission.dynamodb:
+        aws_sig_v4:
+          default_chain:
+            region: "us-east-1"
+            service_name: "dynamodb"
 
 connectors:
   sources:
-    speakerSubmission.supabase:
+    events.luma:
       $config:
-        anonKey: ${env.anonKey}
-      override_url: ${env.url}
+        lumaKey: ${env.LUMA_API_KEY}

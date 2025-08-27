@@ -3,10 +3,6 @@ sandbox:
 supergraph:
   introspection: true
   listen: 0.0.0.0:${env.PORT:-4000}
-  query_planning:
-    cache:
-      in_memory:
-        limit: 512 # This is the default value
 homepage:
   enabled: false
 include_subgraph_errors:
@@ -24,10 +20,21 @@ authentication:
     jwt:
       jwks:
         - url: https://wholesome-canyon-12-staging.authkit.app/oauth2/jwks
+  connector:
+    sources:
+      speakerSubmission.lambda:
+        aws_sig_v4:
+          default_chain:
+            region: "us-east-1"
+            service_name: "lambda"
+      speakerSubmission.dynamodb:
+        aws_sig_v4:
+          default_chain:
+            region: "us-east-1"
+            service_name: "dynamodb"
 
 connectors:
   sources:
-    speakerSubmission.supabase:
+    events.luma:
       $config:
-        anonKey: ${env.anonKey}
-      override_url: ${env.url}
+        lumaKey: ${env.LUMA_API_KEY}

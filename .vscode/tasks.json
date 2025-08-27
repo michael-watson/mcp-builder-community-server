@@ -7,7 +7,7 @@
       "args": [
         "dev",
         "--mcp",
-        "mcp.local.yaml",
+        "./.apollo/mcp.local.yaml",
         "--supergraph-config",
         "./.apollo/supergraph.yaml",
         "--router-config",
