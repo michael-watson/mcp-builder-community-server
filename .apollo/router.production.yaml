@@ -6,8 +6,10 @@ telemetry:
     spans:
       mode: spec_compliant
 
-authorization:
-  require_authentication: true
+logging: 
+  level: debug
+# authorization:
+#   require_authentication: true
 authentication:
   router:
     jwt:
