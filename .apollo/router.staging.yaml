@@ -40,7 +40,6 @@ coprocessor:
     request: 
       headers: true 
       context: true
-      body: true
 
 connectors:
   sources:
