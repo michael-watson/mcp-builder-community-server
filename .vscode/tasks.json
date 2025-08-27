@@ -9,7 +9,7 @@
         "--mcp",
         "./.apollo/mcp.local.yaml",
         "--supergraph-config",
-        "./.apollo/supergraph.yaml",
+        "./connectors/supergraph.yaml",
         "--router-config",
         "./.apollo/router.local.yaml"
       ],

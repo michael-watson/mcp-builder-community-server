@@ -1,19 +1,18 @@
-sandbox:
-  enabled: true
 supergraph:
-  introspection: true
   listen: 0.0.0.0:${env.PORT:-4000}
-homepage:
-  enabled: false
-include_subgraph_errors:
-  all: true
 
 telemetry:
   instrumentation:
     spans:
       mode: spec_compliant
 
+authorization:
+  require_authentication: true
 authentication:
+  router:
+    jwt:
+      jwks:
+        - url: ${env.JWKS_URL}
   connector:
     sources:
       aws.lambda:
@@ -28,12 +27,13 @@ authentication:
             service_name: "dynamodb"
 
 coprocessor:
-  url: http://localhost:8081
+  url: ${env.COPROCESSOR_URL} 
   timeout: 2s 
   router: 
     request: 
       headers: true 
       context: true
+      body: true
 
 connectors:
   sources:
