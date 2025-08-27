@@ -16,16 +16,24 @@ telemetry:
 authentication:
   connector:
     sources:
-      speakerSubmission.lambda:
+      aws.lambda:
         aws_sig_v4:
           default_chain:
             region: "us-east-1"
             service_name: "lambda"
-      speakerSubmission.dynamodb:
+      aws.dynamodb:
         aws_sig_v4:
           default_chain:
             region: "us-east-1"
             service_name: "dynamodb"
+
+coprocessor:
+  url: http://localhost:8081
+  timeout: 2s 
+  router: 
+    request: 
+      headers: true 
+      context: true
 
 connectors:
   sources:

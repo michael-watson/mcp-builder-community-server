@@ -6,13 +6,13 @@ telemetry:
     spans:
       mode: spec_compliant
 
-# authorization:
-#   require_authentication: true
+authorization:
+  require_authentication: true
 authentication:
-#   router:
-#     jwt:
-#       jwks:
-#         - url: ${env.JWKS_URL}
+  router:
+    jwt:
+      jwks:
+        - url: ${env.JWKS_URL}
   connector:
     sources:
       aws.lambda:
@@ -32,6 +32,7 @@ coprocessor:
   router: 
     request: 
       headers: true 
+      context: true
 
 connectors:
   sources:
