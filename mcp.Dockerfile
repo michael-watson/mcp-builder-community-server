@@ -1,4 +1,4 @@
-FROM ghcr.io/apollographql/apollo-mcp-server:v0.7.3
+FROM ghcr.io/apollographql/apollo-mcp-server:v0.7.4-rc.1
 
 ARG BUILD_ENV=local
 
