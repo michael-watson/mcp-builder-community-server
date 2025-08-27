@@ -9,7 +9,7 @@ telemetry:
 # authorization:
 #   require_authentication: true
 authentication:
-  router:
+  # router:
     # jwt:
     #   jwks:
     #     - url: ${env.JWKS_URL}
