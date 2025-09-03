@@ -27,13 +27,11 @@ authentication:
             region: "us-east-1"
             service_name: "dynamodb"
 
-coprocessor:
-  url: http://localhost:8081
-  timeout: 2s 
-  router: 
-    request: 
-      headers: true 
-      context: true
+rhai:
+  scripts: ".apollo"
+  # Specify a different name for your "main" Rhai file with this key.
+  # The router looks for this filename in your Rhai script directory.
+  main: "local.rhai"
 
 connectors:
   sources:
