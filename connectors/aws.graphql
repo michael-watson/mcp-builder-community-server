@@ -111,21 +111,41 @@ type Query {
         body: """
         $args.cursor->match(
           [null, $({
-            TableName: $('mcp-server-builder-series-events'),
+            TableName: $('mcp-community-events'),
             Limit: $args.limit,
+            KeyConditionExpression: '#type = :type',
+            ExpressionAttributeNames: {
+              '#type': 'type'
+            },
+            ExpressionAttributeValues: {
+              ':type': { S: 'event' }
+            },
+            ScanIndexForward: false
           })],
           ["", $({
-            TableName: $('mcp-server-builder-series-events'),
+            TableName: $('mcp-community-events'),
             Limit: $args.limit,
+            KeyConditionExpression: '#type = :type',
+            ExpressionAttributeNames: {
+              '#type': 'type'
+            },
+            ExpressionAttributeValues: {
+              ':type': { S: 'event' }
+            },
+            ScanIndexForward: false
           })],
           [@, $({
-            TableName: $('mcp-server-builder-series-events'),
+            TableName: $('mcp-community-events'),
             Limit: $args.limit,
-            ExclusiveStartKey: { id: { S: @ } }
-          })]
+            KeyConditionExpression: '#type = :type',
+            ExpressionAttributeValues: {
+              ':type': { S: 'event' }
+            },
+            ScanIndexForward: false
+          })],
         )
         """
-        headers: [{ name: "X-Amz-Target", value: "DynamoDB_20120810.Scan" }]
+    headers: [{ name: "X-Amz-Target", value: "DynamoDB_20120810.Query" }]
       }
       selection: """
       pageInfo: {
@@ -133,7 +153,7 @@ type Query {
         next: LastEvaluatedKey.id.S
       }
       items: $.Items {
-        id: id.S
+        id: eventId.S
         name: name.S
         location: location.S
         date: startAt.S
