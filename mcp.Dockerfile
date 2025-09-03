@@ -1,4 +1,4 @@
-FROM ghcr.io/apollographql/apollo-mcp-server:v0.7.4-rc.1
+FROM ghcr.io/apollographql/apollo-mcp-server:canary-20250903T175658Z-d1d5eea
 
 ARG BUILD_ENV=local
 
