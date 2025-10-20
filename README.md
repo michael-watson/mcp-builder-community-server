@@ -23,8 +23,13 @@ APOLLO_KEY=... APOLLO_GRAPH_REF=... ./apollo-mcp-server mcp-config.yaml
 ## Running with Docker 
 
 ```
+# Default for no auth in local dev
 docker build --tag mcp-server-builder-series-mcp -f mcp.Dockerfile .
 docker build --tag mcp-server-builder-series-router -f mcp.Dockerfile .
+# or
+docker build --tag mcp-server-builder-series-mcp -f mcp.Dockerfile --build-arg BUILD_ENV=local .
+docker build --tag mcp-server-builder-series-router -f mcp.Dockerfile --build-arg BUILD_ENV=local .
+
 docker run -it --env-file .env -p5000:5000 mcp-server-builder-series-mcp
 docker run -it --env-file .env -p4000:4000 mcp-server-builder-series-router
 ```
